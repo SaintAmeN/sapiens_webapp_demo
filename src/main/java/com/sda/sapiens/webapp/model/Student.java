@@ -18,6 +18,7 @@ import java.util.List;
 //@RequiredArgsConstructor
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student {

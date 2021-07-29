@@ -32,6 +32,8 @@ public class AuthenticateServlet extends HttpServlet {
             // headery to mapa klucz-wartość
             req.getSession().setAttribute(FilterConstants.HEADER_AUTH_USER_NAME_KEY, parameterName);
             req.getSession().setAttribute(FilterConstants.HEADER_AUTH_USER_SURNAME_KEY, parameterSurname);
+//            resp.setHeader(FilterConstants.HEADER_AUTH_USER_NAME_KEY, parameterName);
+//            resp.setHeader(FilterConstants.HEADER_AUTH_USER_SURNAME_KEY, parameterSurname);
 
             // wszystko ok
             resp.sendRedirect(req.getContextPath() + "/index");

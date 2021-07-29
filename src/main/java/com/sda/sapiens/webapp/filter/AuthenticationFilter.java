@@ -1,18 +1,15 @@
 package com.sda.sapiens.webapp.filter;
 
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import lombok.extern.slf4j.Slf4j;
-
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
 
 @Slf4j
-@WebFilter(urlPatterns = "/index")
+@WebFilter(urlPatterns = {"/index"})
 public class AuthenticationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -25,6 +22,8 @@ public class AuthenticationFilter implements Filter {
 
         String userNameValue = (String) request.getSession().getAttribute(FilterConstants.HEADER_AUTH_USER_NAME_KEY);
         String userSurnameValue = (String) request.getSession().getAttribute(FilterConstants.HEADER_AUTH_USER_SURNAME_KEY);
+//      w  String userNameValue = (String) request.getHeader(FilterConstants.HEADER_AUTH_USER_NAME_KEY);
+//        String userSurnameValue = (String) request.getHeader(FilterConstants.HEADER_AUTH_USER_SURNAME_KEY);
 
         if (userNameValue == null || userNameValue.isEmpty() ||
                 userSurnameValue == null || userSurnameValue.isEmpty()) {
