@@ -1,5 +1,9 @@
+<%@ page import="com.sda.sapiens.webapp.dao.HibernateUtil" %>
 <html>
 <body>
-<h2>Hello World!</h2>
+<%
+    HibernateUtil.getSessionFactory();
+%>
+<h2>Hello World Pawel!</h2>
 </body>
 </html>
