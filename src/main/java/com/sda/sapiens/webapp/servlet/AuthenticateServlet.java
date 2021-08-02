@@ -29,11 +29,9 @@ public class AuthenticateServlet extends HttpServlet {
                 parameterSurname != null && !parameterSurname.isEmpty()){
             // mamy dane które przypiszemy jako nasza dalsza tożsamość
 
-            // headery to mapa klucz-wartość
+            // sesja zawiera mapę klucz-wartość
             req.getSession().setAttribute(FilterConstants.HEADER_AUTH_USER_NAME_KEY, parameterName);
             req.getSession().setAttribute(FilterConstants.HEADER_AUTH_USER_SURNAME_KEY, parameterSurname);
-//            resp.setHeader(FilterConstants.HEADER_AUTH_USER_NAME_KEY, parameterName);
-//            resp.setHeader(FilterConstants.HEADER_AUTH_USER_SURNAME_KEY, parameterSurname);
 
             // wszystko ok
             resp.sendRedirect(req.getContextPath() + "/index");

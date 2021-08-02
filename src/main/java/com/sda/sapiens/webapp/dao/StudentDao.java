@@ -6,5 +6,5 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class StudentDao implements EntityDao<Student> {
-
+    // CRUD
 }

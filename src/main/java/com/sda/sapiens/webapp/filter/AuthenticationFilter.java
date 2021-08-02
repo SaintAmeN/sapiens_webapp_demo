@@ -12,9 +12,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = {"/index"})
 public class AuthenticationFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
+    public void init(FilterConfig filterConfig) throws ServletException { }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -22,19 +20,15 @@ public class AuthenticationFilter implements Filter {
 
         String userNameValue = (String) request.getSession().getAttribute(FilterConstants.HEADER_AUTH_USER_NAME_KEY);
         String userSurnameValue = (String) request.getSession().getAttribute(FilterConstants.HEADER_AUTH_USER_SURNAME_KEY);
-//      w  String userNameValue = (String) request.getHeader(FilterConstants.HEADER_AUTH_USER_NAME_KEY);
-//        String userSurnameValue = (String) request.getHeader(FilterConstants.HEADER_AUTH_USER_SURNAME_KEY);
 
+        // Log poniżej wypisze komunikat przy każdym zapytaniu żeby poinformować o ścieżce oraz o metodzie
+        log.info("Path Info: " + request.getPathInfo() + " " + request.getMethod());
         if (userNameValue == null || userNameValue.isEmpty() ||
                 userSurnameValue == null || userSurnameValue.isEmpty()) {
             log.info("Użytkownik nie jest autentykowany. Przekierowujemy na stronę logowania");
             HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-            // ścieżka domyślna = /webapp
-            // request.getRequestURI() = /webapp/sciezka/do/adresu
-            // request.getPathInfo() = /sciezka/do/adresu
 
-            log.info("Get Path Info: " + request.getPathInfo() + " " + request.getMethod());
             if(!request.getMethod().equalsIgnoreCase("post")) {
                 response.sendRedirect(servletRequest.getServletContext().getContextPath() + "/login");
                 return;

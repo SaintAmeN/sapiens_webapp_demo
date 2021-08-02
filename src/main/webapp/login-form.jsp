@@ -22,6 +22,7 @@
 <body>
 
 <div>
+<%--    Wyślij metodą POST zawartość formularza pod wskazany adres (/login) --%>
     <form action="${pageContext.request.contextPath}/login" method="post">
         <div>
             <div>Name:</div>

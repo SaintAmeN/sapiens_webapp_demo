@@ -3,7 +3,7 @@ package com.sda.sapiens.webapp.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 // POJO -
@@ -30,7 +30,9 @@ public class Student {
     private String firstName;
     private String lastName;
     private String indeks;
-    private LocalDate birthDate;
+
+    // Persistance / EntityManager nie wspiera LocalDate
+    private Date birthDate;
 
     @OneToMany(mappedBy = "student")
     @ToString.Exclude

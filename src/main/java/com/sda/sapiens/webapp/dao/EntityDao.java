@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// Entity Manager
 public interface EntityDao<T> {
     default void saveOrUpdate(T entity) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
@@ -55,7 +56,7 @@ public interface EntityDao<T> {
         return list;
     }
 
-
+    // Hibernate Query Language
     default Optional<T> getById(Class<T> classT, Long id) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         try (Session session = factory.openSession()) {

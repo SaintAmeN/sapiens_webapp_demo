@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -32,9 +34,9 @@ public class StudentFormServlet extends HttpServlet {
         String studentIndex = req.getParameter("student-indeks");
         String studentBirthDate = req.getParameter("student-birth-date");
 
-        LocalDate birthDate;
+        Date birthDate;
         try {
-            birthDate = LocalDate.parse(studentBirthDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            birthDate = Date.valueOf(studentBirthDate);
         } catch (IllegalArgumentException iae) {
             resp.sendRedirect(req.getContextPath() + "/student/form?error=" + iae.getMessage());
             return;

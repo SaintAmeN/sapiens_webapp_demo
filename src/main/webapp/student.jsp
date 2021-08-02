@@ -41,7 +41,11 @@
                 <td><c:out value="${element.indeks}"/></td>
                 <td><c:out value="${element.birthDate}"/></td>
                 <td>Edit</td>
-                <td>Delete</td>
+                <td>
+                    <a href="<c:out value="${pageContext.request.contextPath}"/>/student/remove?studentId=<c:out value="${element.id}"/> ">
+                        Delete
+                    </a>
+                </td>
             </tr>
         </c:forEach>
     </table>
