@@ -40,7 +40,11 @@
                 <td><c:out value="${element.lastName}"/></td>
                 <td><c:out value="${element.indeks}"/></td>
                 <td><c:out value="${element.birthDate}"/></td>
-                <td>Edit</td>
+                <td>
+                    <a href="<c:out value="${pageContext.request.contextPath}"/>/student/edit?studentId=<c:out value="${element.id}"/> ">
+                        Edit
+                    </a>
+                </td>
                 <td>
                     <a href="<c:out value="${pageContext.request.contextPath}"/>/student/remove?studentId=<c:out value="${element.id}"/> ">
                         Delete
