@@ -29,6 +29,14 @@ public class StudentFormServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // ponieważ podczas dodawania nowego rekordu to pole będzie równe null, to musimy rozważyć 2 przypadki
+        String editedId = req.getParameter("edited_student_id");
+        Long editedStudentId = null;
+        if(editedId != null && !editedId.isEmpty()){ // jeśli jest podane i nie jest puste
+            log.info("Edytujemy studenta o identyfikatorze: " + editedId);
+            editedStudentId = Long.parseLong(editedId);
+        }
+
         String studentFirstName = req.getParameter("student-first-name");
         String studentLastName = req.getParameter("student-last-name");
         String studentIndex = req.getParameter("student-indeks");
@@ -44,6 +52,7 @@ public class StudentFormServlet extends HttpServlet {
 
         // korzystam z adnotacji @Builder w klasie Student (patrz pod @Data)
         Student student = Student.builder()
+                .id(editedStudentId)
                 .firstName(studentFirstName)
                 .lastName(studentLastName)
                 .indeks(studentIndex)
