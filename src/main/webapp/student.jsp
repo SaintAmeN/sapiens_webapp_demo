@@ -25,13 +25,16 @@
 <div>
     <table>
         <thead>
-        <th>Id</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Index number</th>
-        <th>Birth date</th>
-        <th></th>
-        <th></th>
+        <tr>
+            <th>Id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Index number</th>
+            <th>Birth date</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
         </thead>
         <c:forEach var="element" items="${studentList}">
             <tr>
@@ -48,6 +51,11 @@
                 <td>
                     <a href="<c:out value="${pageContext.request.contextPath}"/>/student/remove?studentId=<c:out value="${element.id}"/> ">
                         Delete
+                    </a>
+                </td>
+                <td>
+                    <a href="<c:out value="${pageContext.request.contextPath}"/>/student/details?studentId=<c:out value="${element.id}"/> ">
+                        Details
                     </a>
                 </td>
             </tr>

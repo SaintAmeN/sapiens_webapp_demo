@@ -34,7 +34,7 @@ public class Student {
     // Persistance / EntityManager nie wspiera LocalDate
     private Date birthDate;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Grade> grades;
