@@ -13,10 +13,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import static com.sda.sapiens.webapp.servlet.ServletURL.STUDENT_DETAILS;
+
 // REST API = JSON
 // SOAP     = XML
 @Slf4j
-@WebServlet("/student/details")
+@WebServlet(STUDENT_DETAILS)
 public class StudentDetailsServlet extends HttpServlet {
 
     private final StudentDao studentDao = new StudentDao();
