@@ -35,10 +35,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public Optional<Student> getById(Long id) {
-        return Optional.ofNullable(entityManager
-                .createQuery("FROM Student s WHERE id=" + id, Student.class)
-                .getSingleResult());
-//        return Optional.of(entityManager.find(Student.class, id));
+        return Optional.of(entityManager.find(Student.class, id));
     }
 
     @Override
