@@ -1,9 +1,6 @@
 package com.sda.sapiens.webapp.servlet;
 
-
-import com.sda.sapiens.webapp.dao.EntityDao;
-import com.sda.sapiens.webapp.dao.StudentDao;
-import com.sda.sapiens.webapp.model.Student;
+import com.sda.sapiens.webapp.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -18,10 +15,10 @@ import java.io.IOException;
 @WebServlet("/student/remove")
 public class StudentRemoveServlet extends HttpServlet {
 
-    private final EntityDao<Student> studentDao;
+    private final StudentRepository studentDao;
 
     @Inject
-    public StudentRemoveServlet(EntityDao<Student> studentDao) {
+    public StudentRemoveServlet(StudentRepository studentDao) {
         this.studentDao = studentDao;
     }
 
@@ -33,7 +30,7 @@ public class StudentRemoveServlet extends HttpServlet {
 
         // 1. musimy usunąć element z bazy, podajemy identyfikator obiektu usuwanego.
         Long identifier = Long.parseLong(studentId);
-        studentDao.delete(Student.class, identifier);
+        studentDao.delete(identifier);
 
         // 2. przekierować użytkownika na adres "z którego przyszedł"
         // referer to nazwa nagłówka (header) który zawsze otrzymujemy od użytkownika/z requestu

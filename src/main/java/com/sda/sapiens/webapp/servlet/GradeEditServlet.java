@@ -1,8 +1,8 @@
 package com.sda.sapiens.webapp.servlet;
 
-import com.sda.sapiens.webapp.dao.EntityDao;
 import com.sda.sapiens.webapp.model.Grade;
 import com.sda.sapiens.webapp.model.GradeSubject;
+import com.sda.sapiens.webapp.repository.GradeRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -19,10 +19,10 @@ import static com.sda.sapiens.webapp.servlet.ServletURL.STUDENT_DETAILS;
 @Slf4j
 @WebServlet("/grade/edit")
 public class GradeEditServlet extends HttpServlet {
-    private final EntityDao<Grade> gradeEntityDao;
+    private final GradeRepository gradeEntityDao;
 
     @Inject
-    public GradeEditServlet(EntityDao<Grade> gradeEntityDao) {
+    public GradeEditServlet(GradeRepository gradeEntityDao) {
         this.gradeEntityDao = gradeEntityDao;
     }
 
@@ -31,7 +31,7 @@ public class GradeEditServlet extends HttpServlet {
         Long gradeIdentifier = Long.parseLong(req.getParameter("gradeId"));
         // przy metodzie get parameter to fragment ścieżki - ponieważ zapytanie GET jest jawne
 
-        Optional<Grade> gradeOptional = gradeEntityDao.getById(Grade.class, gradeIdentifier);
+        Optional<Grade> gradeOptional = gradeEntityDao.getById(gradeIdentifier);
         if (gradeOptional.isPresent()) {
             Grade grade = gradeOptional.get();
 
@@ -50,7 +50,7 @@ public class GradeEditServlet extends HttpServlet {
         // przy metodzie post wszystkie parametry (treść formularza zostaje wysłana przez parametry niejawnie)
         // metoda post ukrywa parametry (treść formularza)
 
-        Optional<Grade> gradeOptional = gradeEntityDao.getById(Grade.class, gradeIdentifier);
+        Optional<Grade> gradeOptional = gradeEntityDao.getById(gradeIdentifier);
         if (gradeOptional.isPresent()) {
             Grade ocena_w_bazie_danych = gradeOptional.get();
             // Po tym jak użytkownik wysłał formularz odbieramy ID i pierwszym krokiem jest weryfikacja czy dana

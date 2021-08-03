@@ -1,9 +1,7 @@
 package com.sda.sapiens.webapp.servlet;
 
-import com.sda.sapiens.webapp.dao.EntityDao;
-import com.sda.sapiens.webapp.dao.StudentDao;
-import com.sda.sapiens.webapp.model.Grade;
 import com.sda.sapiens.webapp.model.Student;
+import com.sda.sapiens.webapp.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -19,16 +17,16 @@ import java.util.List;
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
 
-    private final EntityDao<Student> studentDao;
+    private final StudentRepository studentDao;
 
     @Inject
-    public StudentServlet(EntityDao<Student> studentDao) {
+    public StudentServlet(StudentRepository studentDao) {
         this.studentDao = studentDao;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Student> studentList = studentDao.getAll(Student.class);
+        List<Student> studentList = studentDao.getAll();
 
         req.setAttribute("studentList", studentList);
         req.getRequestDispatcher("/student.jsp").forward(req, resp);

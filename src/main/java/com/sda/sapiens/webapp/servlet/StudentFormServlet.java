@@ -1,8 +1,7 @@
 package com.sda.sapiens.webapp.servlet;
 
-import com.sda.sapiens.webapp.dao.EntityDao;
-import com.sda.sapiens.webapp.dao.StudentDao;
 import com.sda.sapiens.webapp.model.Student;
+import com.sda.sapiens.webapp.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -22,10 +21,10 @@ import java.util.List;
 @WebServlet("/student/form")
 public class StudentFormServlet extends HttpServlet {
 
-    private final EntityDao<Student> studentDao;
+    private final StudentRepository studentDao;
 
     @Inject
-    public StudentFormServlet(EntityDao<Student> studentDao) {
+    public StudentFormServlet(StudentRepository studentDao) {
         this.studentDao = studentDao;
     }
 

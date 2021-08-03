@@ -1,8 +1,7 @@
 package com.sda.sapiens.webapp.servlet;
 
-import com.sda.sapiens.webapp.dao.EntityDao;
-import com.sda.sapiens.webapp.dao.StudentDao;
 import com.sda.sapiens.webapp.model.Student;
+import com.sda.sapiens.webapp.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -23,10 +22,10 @@ import static com.sda.sapiens.webapp.servlet.ServletURL.STUDENT_DETAILS;
 @WebServlet(STUDENT_DETAILS)
 public class StudentDetailsServlet extends HttpServlet {
 
-    private final EntityDao<Student> studentDao;
+    private final StudentRepository studentDao;
 
     @Inject
-    public StudentDetailsServlet(EntityDao<Student> studentDao) {
+    public StudentDetailsServlet(StudentRepository studentDao) {
         this.studentDao = studentDao;
     }
 
@@ -35,7 +34,7 @@ public class StudentDetailsServlet extends HttpServlet {
         Long identifier = Long.parseLong(req.getParameter("studentId"));
 
         // ładujemy studenta z bazy danych
-        Optional<Student> optionalStudent = studentDao.getById(Student.class, identifier);
+        Optional<Student> optionalStudent = studentDao.getById(identifier);
         if(optionalStudent.isPresent()){
             req.setAttribute("student", optionalStudent.get());
 

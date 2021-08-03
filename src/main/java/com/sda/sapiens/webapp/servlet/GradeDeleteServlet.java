@@ -1,9 +1,6 @@
 package com.sda.sapiens.webapp.servlet;
 
-import com.sda.sapiens.webapp.dao.EntityDao;
-import com.sda.sapiens.webapp.dao.GradeDao;
-import com.sda.sapiens.webapp.model.Grade;
-import com.sda.sapiens.webapp.model.Student;
+import com.sda.sapiens.webapp.repository.GradeRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -19,10 +16,10 @@ import static com.sda.sapiens.webapp.servlet.ServletURL.STUDENT_DETAILS;
 @Slf4j
 @WebServlet("/grade/delete")
 public class GradeDeleteServlet extends HttpServlet {
-    private final EntityDao<Grade> gradeDao;
+    private final GradeRepository gradeDao;
 
     @Inject
-    public GradeDeleteServlet(EntityDao<Grade> gradeDao) {
+    public GradeDeleteServlet(GradeRepository gradeDao) {
         this.gradeDao = gradeDao;
     }
 
@@ -36,7 +33,7 @@ public class GradeDeleteServlet extends HttpServlet {
 
         // 1. musimy usunąć element z bazy, podajemy identyfikator obiektu usuwanego.
         Long identifier = Long.parseLong(gradeId);
-        gradeDao.delete(Grade.class, identifier);
+        gradeDao.delete(identifier);
 
         // 2. przekierować użytkownika na adres "z którego przyszedł"
         // referer to nazwa nagłówka (header) który zawsze otrzymujemy od użytkownika/z requestu

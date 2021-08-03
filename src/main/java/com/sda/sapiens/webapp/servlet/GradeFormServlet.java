@@ -1,11 +1,10 @@
 package com.sda.sapiens.webapp.servlet;
 
-import com.sda.sapiens.webapp.dao.EntityDao;
-import com.sda.sapiens.webapp.dao.GradeDao;
-import com.sda.sapiens.webapp.dao.StudentDao;
 import com.sda.sapiens.webapp.model.Grade;
 import com.sda.sapiens.webapp.model.GradeSubject;
 import com.sda.sapiens.webapp.model.Student;
+import com.sda.sapiens.webapp.repository.GradeRepository;
+import com.sda.sapiens.webapp.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -23,11 +22,11 @@ import static com.sda.sapiens.webapp.servlet.ServletURL.STUDENT_DETAILS;
 @WebServlet("/grade/form")
 public class GradeFormServlet extends HttpServlet {
 
-    private final EntityDao<Student> studentDao;
-    private final EntityDao<Grade> gradeDao;
+    private final StudentRepository studentDao;
+    private final GradeRepository gradeDao;
 
     @Inject
-    public GradeFormServlet(EntityDao<Student> studentDao, EntityDao<Grade> gradeDao) {
+    public GradeFormServlet(StudentRepository studentDao, GradeRepository gradeDao) {
         this.studentDao = studentDao;
         this.gradeDao = gradeDao;
     }
@@ -49,7 +48,7 @@ public class GradeFormServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long studentId = Long.valueOf(req.getParameter("studentId"));
 
-        Optional<Student> optionalStudent = studentDao.getById(Student.class, studentId);
+        Optional<Student> optionalStudent = studentDao.getById(studentId);
         if (optionalStudent.isPresent()) {
             Student student = optionalStudent.get();
 

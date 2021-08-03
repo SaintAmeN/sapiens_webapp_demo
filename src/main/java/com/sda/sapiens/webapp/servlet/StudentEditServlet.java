@@ -1,8 +1,7 @@
 package com.sda.sapiens.webapp.servlet;
 
-import com.sda.sapiens.webapp.dao.EntityDao;
-import com.sda.sapiens.webapp.dao.StudentDao;
 import com.sda.sapiens.webapp.model.Student;
+import com.sda.sapiens.webapp.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -18,10 +17,10 @@ import java.util.Optional;
 @WebServlet("/student/edit")
 public class StudentEditServlet extends HttpServlet {
 
-    private final EntityDao<Student> studentDao;
+    private final StudentRepository studentDao;
 
     @Inject
-    public StudentEditServlet(EntityDao<Student> studentDao) {
+    public StudentEditServlet(StudentRepository studentDao) {
         this.studentDao = studentDao;
     }
 
@@ -32,7 +31,7 @@ public class StudentEditServlet extends HttpServlet {
         String studentId = req.getParameter("studentId");
         Long identifier = Long.parseLong(studentId);
 
-        Optional<Student> student = studentDao.getById(Student.class, identifier);
+        Optional<Student> student = studentDao.getById(identifier);
         if (student.isPresent()) {
             // jeśli go znaleźliśmy
             Student studentFromDatabase = student.get(); // wydobycie obiektu z Optional

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <Resource id="DefaultDS" type="javax.sql.DataSource">
+        jdbcDriver = com.mysql.jdbc.Driver
+        jdbcUrl = jdbc:mysql://localhost/sapiens_student_db?serverTimezone=Europe/Warsaw&amp;createDatabaseIfNotExist=true
+        password = root
+        passwordCipher = PlainText
+        userName = root
+    </Resource>
+</resources>

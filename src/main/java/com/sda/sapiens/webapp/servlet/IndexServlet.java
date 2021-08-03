@@ -1,6 +1,5 @@
 package com.sda.sapiens.webapp.servlet;
 
-import com.sda.sapiens.webapp.dao.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
