@@ -38,7 +38,7 @@ public class StudentEditServlet extends HttpServlet {
             Student studentFromDatabase = student.get(); // wydobycie obiektu z Optional
 
             // 1. dodaj studenta jako atrybut do przekazania we frontendzie
-            req.setAttribute("student", studentFromDatabase);
+            req.setAttribute("dane_studenta_edytowanego", studentFromDatabase);
 
             // 2. załaduj formularz
             req.getRequestDispatcher("/student-form.jsp").forward(req, resp);

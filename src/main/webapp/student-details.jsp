@@ -34,7 +34,8 @@
 </table>
 <hr>
 <h3>
-    Grades <a href="<c:out value="${pageContext.request.contextPath}"/>/grade/form?student_id=<c:out value="${student.id}"/>">+</a>
+    Grades <a
+        href="<c:out value="${pageContext.request.contextPath}"/>/grade/form?student_id=<c:out value="${student.id}"/>">+</a>
 </h3>
 <table>
     <thead>
@@ -52,8 +53,19 @@
             <td><c:out value="${grade.id}"></c:out></td>
             <td><c:out value="${grade.gradeValue}"></c:out></td>
             <td><c:out value="${grade.subject}"></c:out></td>
-            <td>Edit</td>
-            <td>Delete</td>
+            <td>
+                <a href="<c:out value="${pageContext.request.contextPath}"/>/grade/edit?gradeId=<c:out value="${grade.id}"/>">
+                    Edit
+                </a>
+            </td>
+            <td>
+                    <%--                1. referer--%>
+                    <%--                2.-----> przesłać student ID i przekierować na jego details --%>
+                    <%--                3. przed usunięciem sprawdzić ID studenta z obiektu ocena i przekierować na jego details--%>
+                <a href="<c:out value="${pageContext.request.contextPath}"/>/grade/delete?gradeId=<c:out value="${grade.id}"/>&studentId=<c:out value="${student.id}"/>">
+                    Delete
+                </a>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

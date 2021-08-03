@@ -21,22 +21,22 @@
 <body>
 <div>
     <form action="<c:out value="${pageContext.request.contextPath}"/>/student/form" method="post">
-        <input name="edited_student_id" value="<c:out value="${student.id}"/>" readonly hidden>
+        <input name="edited_student_id" value="<c:out value="${dane_studenta_edytowanego.id}"/>" readonly hidden>
         <div>
             <div>First name:</div>
-            <div><input type="text" name="student-first-name" value="<c:out value="${student.firstName}"/>"></div>
+            <div><input type="text" name="student-first-name" value="<c:out value="${dane_studenta_edytowanego.firstName}"/>"></div>
         </div>
         <div>
             <div>Last name:</div>
-            <div><input type="text" name="student-last-name" value="<c:out value="${student.lastName}"/>"></div>
+            <div><input type="text" name="student-last-name" value="<c:out value="${dane_studenta_edytowanego.lastName}"/>"></div>
         </div>
         <div>
             <div>Index:</div>
-            <div><input type="text" name="student-indeks" value="<c:out value="${student.indeks}"/>"></div>
+            <div><input type="text" name="student-indeks" value="<c:out value="${dane_studenta_edytowanego.indeks}"/>"></div>
         </div>
         <div>
             <div>Birth date:</div>
-            <div><input type="date" name="student-birth-date" value="<c:out value="${student.birthDate}"/>"></div>
+            <div><input type="date" name="student-birth-date" value="<c:out value="${dane_studenta_edytowanego.birthDate}"/>"></div>
         </div>
         <button type="submit">Submit</button>
     </form>

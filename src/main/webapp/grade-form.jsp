@@ -20,27 +20,37 @@
 </head>
 <body>
 <div>
+    <c:if test="${grade_ktory_edytujemy == null}">
     <form action="<c:out value="${pageContext.request.contextPath}"/>/grade/form" method="post">
-        <input name="edited_grade_id" value="<c:out value="${grade.id}"/>" readonly hidden>
-        <input name="studentId" value="<c:out value="${student_identifier}"/>" readonly hidden>
-        <div>
-            <div>Grade:</div>
+        </c:if>
+        <c:if test="${grade_ktory_edytujemy != null}">
+        <form action="<c:out value="${pageContext.request.contextPath}"/>/grade/edit" method="post">
+            </c:if>
+            <input name="edited_grade_id" value="<c:out value="${grade_ktory_edytujemy.id}"/>" readonly hidden>
+            <input name="studentId" value="<c:out value="${student_identifier}"/>" readonly hidden>
             <div>
-                <input type="number" step="0.5" min="1" max="6" name="grade-value"
-                       value="<c:out value="${grade.gradeValue}"/>"></div>
-        </div>
-        <div>
-            <div>Subject:</div>
-            <div>
-                <select class="browser-default" name="grade-subject">
-                    <c:forEach var="singleSubject" items="${gradeSubjectsAvailable}">
-                        <option value="<c:out value="${singleSubject}"/>"><c:out value="${singleSubject}"/></option>
-                    </c:forEach>
-                </select>
+                <div>Grade:</div>
+                <div>
+                    <input type="number" step="0.5" min="1" max="6" name="grade-value"
+                           value="<c:out value="${grade_ktory_edytujemy.gradeValue}"/>"></div>
             </div>
-        </div>
-        <button type="submit">Submit</button>
-    </form>
+            <div>
+                <div>Subject:</div>
+                <div>
+                    <select class="browser-default" name="grade-subject">
+                        <c:forEach var="singleSubject" items="${gradeSubjectsAvailable}">
+                            <c:if test="${singleSubject == grade_ktory_edytujemy.subject}">
+                                <option selected value="<c:out value="${singleSubject}"/>"><c:out value="${singleSubject}"/></option>
+                            </c:if>
+                            <c:if test="${singleSubject != grade_ktory_edytujemy.subject}">
+                                <option value="<c:out value="${singleSubject}"/>"><c:out value="${singleSubject}"/></option>
+                            </c:if>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
 </div>
 </body>
 </html>
