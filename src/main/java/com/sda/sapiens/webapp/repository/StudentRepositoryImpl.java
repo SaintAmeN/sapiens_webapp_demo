@@ -1,7 +1,9 @@
 package com.sda.sapiens.webapp.repository;
 
+import com.sda.sapiens.webapp.model.Grade;
 import com.sda.sapiens.webapp.model.Student;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +23,9 @@ import java.util.Optional;
 public class StudentRepositoryImpl implements StudentRepository {
     @PersistenceContext
     public EntityManager entityManager;
+
+    @EJB
+    private GradeRepository gradeRepository;
 
     @Override
     public void saveOrUpdate(Student student) {
@@ -48,7 +53,16 @@ public class StudentRepositoryImpl implements StudentRepository {
     public void delete(Long studentId) {
         Optional<Student> studentOptional = getById(studentId);
         if(studentOptional.isPresent()) {
-            entityManager.remove(studentOptional.get());
+            Student student = studentOptional.get();
+
+            // lista ocen nie pobiera się wraz z obiektem student, dlatego wykonujemy oddzielne zapytanie
+            // po pobraniu ocen możemy ją iterować
+            List<Grade> gradeList = gradeRepository.getAll(student);
+            for (Grade grade : gradeList) {
+                entityManager.remove(grade);
+            }
+
+            entityManager.remove(student);
         }
     }
 }
