@@ -38,7 +38,7 @@ public class StudentFormServlet extends HttpServlet {
         // ponieważ podczas dodawania nowego rekordu to pole będzie równe null, to musimy rozważyć 2 przypadki
         String editedId = req.getParameter("edited_student_id");
         Long editedStudentId = null;
-        if(editedId != null && !editedId.isEmpty()){ // jeśli jest podane i nie jest puste
+        if (editedId != null && !editedId.isEmpty()) { // jeśli jest podane i nie jest puste
             log.info("Edytujemy studenta o identyfikatorze: " + editedId);
             editedStudentId = Long.parseLong(editedId);
         }
@@ -48,21 +48,13 @@ public class StudentFormServlet extends HttpServlet {
         String studentIndex = req.getParameter("student-indeks");
         String studentBirthDate = req.getParameter("student-birth-date");
 
-        Date birthDate;
-        try {
-            birthDate = Date.valueOf(studentBirthDate);
-        } catch (IllegalArgumentException iae) {
-            resp.sendRedirect(req.getContextPath() + "/student/form?error=" + iae.getMessage());
-            return;
-        }
-
         // korzystam z adnotacji @Builder w klasie Student (patrz pod @Data)
         Student student = Student.builder()
                 .id(editedStudentId)
                 .firstName(studentFirstName)
                 .lastName(studentLastName)
                 .indeks(studentIndex)
-                .birthDate(birthDate)
+                .birthDate(LocalDate.parse(studentBirthDate))
                 .build();
 
         studentDao.saveOrUpdate(student);
