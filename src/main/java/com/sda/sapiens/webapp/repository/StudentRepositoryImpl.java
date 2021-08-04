@@ -5,6 +5,7 @@ import com.sda.sapiens.webapp.model.Student;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 // 1.
@@ -23,14 +24,19 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public void saveOrUpdate(Student student) {
-        entityManager.persist(student);
+        if(student.getId() != null){
+            // jeśli id zostało dostarczone, to edytujemy istniejący rekord (merge)
+            entityManager.merge(student);
+        }else{
+            // jeśli nie mamy id, dodajemy nowy rekord
+            entityManager.persist(student);
+        }
     }
 
     @Override
     public List<Student> getAll() {
-        return entityManager
-                .createQuery("FROM Student s", Student.class)
-                .getResultList();
+        Query query = entityManager.createQuery("SELECT s from Student s", Student.class);
+        return query.getResultList();
     }
 
     @Override

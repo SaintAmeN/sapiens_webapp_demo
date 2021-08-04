@@ -48,7 +48,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="grade" items="${student.grades}">
+    <c:forEach var="grade" items="${studentGrades}">
         <tr>
             <td><c:out value="${grade.id}"></c:out></td>
             <td><c:out value="${grade.gradeValue}"></c:out></td>

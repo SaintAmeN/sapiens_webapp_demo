@@ -1,6 +1,8 @@
 package com.sda.sapiens.webapp.servlet;
 
+import com.sda.sapiens.webapp.model.Grade;
 import com.sda.sapiens.webapp.model.Student;
+import com.sda.sapiens.webapp.repository.GradeRepository;
 import com.sda.sapiens.webapp.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,10 +25,12 @@ import static com.sda.sapiens.webapp.servlet.ServletURL.STUDENT_DETAILS;
 public class StudentDetailsServlet extends HttpServlet {
 
     private final StudentRepository studentDao;
+    private final GradeRepository gradeRepository;
 
     @Inject
-    public StudentDetailsServlet(StudentRepository studentDao) {
+    public StudentDetailsServlet(StudentRepository studentDao, GradeRepository gradeRepository) {
         this.studentDao = studentDao;
+        this.gradeRepository = gradeRepository;
     }
 
     @Override
@@ -36,7 +40,11 @@ public class StudentDetailsServlet extends HttpServlet {
         // ładujemy studenta z bazy danych
         Optional<Student> optionalStudent = studentDao.getById(identifier);
         if(optionalStudent.isPresent()){
-            req.setAttribute("student", optionalStudent.get());
+            Student student = optionalStudent.get();
+            req.setAttribute("student", student);
+
+            List<Grade> ocenyStudenta = gradeRepository.getAll(student);
+            req.setAttribute("studentGrades", ocenyStudenta);
 
             // ładujemy stronę ze szczegółami studenta
             req.getRequestDispatcher("/student-details.jsp").forward(req, resp);
