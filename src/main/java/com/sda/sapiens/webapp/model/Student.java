@@ -1,5 +1,6 @@
 package com.sda.sapiens.webapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -44,14 +45,4 @@ public class Student {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Grade> grades;
-    
-    public JsonObject toJson(){
-        return Json.createObjectBuilder()
-                .add("id", getId())
-                .add("firstName", getFirstName())
-                .add("lastName", getLastName())
-                .add("indeks", getIndeks())
-                .add("birthDate", new SimpleDateFormat("yyyy-MM-dd").format(getBirthDate()))
-                .build();
-    }
 }
