@@ -56,8 +56,8 @@ public class StudentResource {
 
     @POST // EDYCJA
     @Path("/{id}")
-    @Produces(value = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Consumes(value = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces(value = {MediaType.APPLICATION_JSON})
+    @Consumes(value = {MediaType.APPLICATION_JSON})
     public Response editStudent(@PathParam(value = "id") Long identifier,
                                 StudentEditRequest editRequest) {
         // może wysłać zapytanie i podać:
@@ -74,8 +74,8 @@ public class StudentResource {
 
     @PUT // dodawanie
     @Path("")
-    @Produces(value = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Consumes(value = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces(value = {MediaType.APPLICATION_JSON})
+    @Consumes(value = {MediaType.APPLICATION_JSON})
     public Response addStudent(StudentEditRequest editRequest) {
         // może wysłać zapytanie i podać:
         // - id                     -- identyfikator obiektu w bazie który edytujemy

@@ -3,6 +3,7 @@ package com.sda.sapiens.webapp.services;
 import com.sda.sapiens.webapp.model.Student;
 import com.sda.sapiens.webapp.model.dto.StudentDto;
 import com.sda.sapiens.webapp.model.dto.StudentEditRequest;
+import com.sda.sapiens.webapp.model.mapper.IStudentMapper;
 import com.sda.sapiens.webapp.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,10 +18,12 @@ import java.util.stream.Collectors;
 @Stateless
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final IStudentMapper studentMapper;
 
     @Inject
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, IStudentMapper studentMapper) {
         this.studentRepository = studentRepository;
+        this.studentMapper = studentMapper;
     }
 
     public Student updateStudent(Long id, StudentEditRequest request) {
@@ -28,18 +31,7 @@ public class StudentService {
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
 
-            if (request.getName() != null) {
-                student.setFirstName(request.getName());
-            }
-            if (request.getSurname() != null) {
-                student.setLastName(request.getSurname());
-            }
-            if (request.getStudentIndex() != null) {
-                student.setIndeks(request.getStudentIndex());
-            }
-            if (request.getDateOfBirth() != null) {
-                student.setBirthDate(request.getDateOfBirth());
-            }
+            studentMapper.update(request, student);
 
             studentRepository.saveOrUpdate(student);
 
@@ -50,13 +42,7 @@ public class StudentService {
     }
 
     public Student addStudent(StudentEditRequest studentInfo) {
-        Student student = Student.builder()
-                .firstName(studentInfo.getName())
-                .lastName(studentInfo.getSurname())
-                .birthDate(studentInfo.getDateOfBirth())
-                .indeks(studentInfo.getStudentIndex())
-                .build();
-
+        Student student = studentMapper.studentEditRequestToStudent(studentInfo);
         studentRepository.saveOrUpdate(student);
 
         return student;
@@ -65,12 +51,7 @@ public class StudentService {
     public List<StudentDto> getAll() {
         return studentRepository.getAll()
                 .stream()
-                .map(student -> new StudentDto(
-                        student.getId(),
-                        student.getFirstName(),
-                        student.getLastName(),
-                        student.getIndeks(),
-                        student.getBirthDate()))
+                .map(studentMapper::studentToStudentDto)
                 .collect(Collectors.toList());
     }
 
@@ -78,12 +59,7 @@ public class StudentService {
         Optional<Student> studentOptional = studentRepository.getById(identifier);
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
-            return new StudentDto(
-                    student.getId(),
-                    student.getFirstName(),
-                    student.getLastName(),
-                    student.getIndeks(),
-                    student.getBirthDate());
+            return studentMapper.studentToStudentDto(student);
         }
         throw new EntityNotFoundException("Entity not found, student with id: " + identifier);
     }
