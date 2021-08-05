@@ -20,6 +20,9 @@ import java.util.Optional;
 @Path("/api/student")
 public class StudentResource {
 
+    // Servlety/Resource    <->     Service         <->      Repository
+    // Przyjęcie/Odpowiedź  <->     Przetworzenie   <->      Metody na bazie danych
+    //      na request          Logika Biz.                  Operacje na modelach
     private final StudentRepository studentRepository;
     private final StudentService studentService;
 
