@@ -9,10 +9,10 @@ import org.mapstruct.*;
 public interface IStudentMapper {
 
     @Mappings(value = {
-            @Mapping(target = "firstName", source = "name"),
-            @Mapping(target = "lastName", source = "surname"),
-            @Mapping(target = "indeks", source = "studentIndex"),
-            @Mapping(target = "birthDate", source = "dateOfBirth"),
+            @Mapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, target = "firstName", source = "name"),
+            @Mapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, target = "lastName", source = "surname"),
+            @Mapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, target = "indeks", source = "studentIndex"),
+            @Mapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, target = "birthDate", source = "dateOfBirth"),
     })
     public abstract Student studentEditRequestToStudent(StudentEditRequest request);
 

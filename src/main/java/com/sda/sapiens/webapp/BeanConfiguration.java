@@ -13,4 +13,19 @@ public class BeanConfiguration {
     public IStudentMapper studentMapper(){
         return Mappers.getMapper(IStudentMapper.class);
     }
+
+    // Message Bus - narzędzie do rozgłaszania wiadomości
+    //             - ActiveMQ
+    //             - Kafka
+    //             - RabbitMQ
+    //
+
+    // consumer - klasa ktora pochłania i obsługuje
+    //          - wypisz komunikat po otrzymaniu wiadomości
+    //          - Wiadomość będzie typu STRING - będzie opakowana w obiekt
+
+    // producer - klasa która produkuje wiadomości
+    //          - MessageResource - REST API
+    //          - nadanie wiadomości na topicu/kolejce
+
 }
